@@ -8,8 +8,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.example.komoot.challenge.MainActivity
 import com.example.komoot.challenge.R
+import com.example.komoot.challenge.ui.main.MainActivity
 
 class NotificationServiceImpl(
     private val applicationContext: Context,
