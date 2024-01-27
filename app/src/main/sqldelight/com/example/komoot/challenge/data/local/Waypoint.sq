@@ -1,0 +1,16 @@
+CREATE TABLE Waypoint (
+    time INTEGER NOT NULL UNIQUE,
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL,
+    picture TEXT NOT NULL,
+    PRIMARY KEY (time)
+);
+
+insert:
+INSERT INTO Waypoint (time, latitude, longitude, picture) VALUES (?,?, ?, ?);
+
+getAll:
+SELECT * FROM Waypoint;
+
+deleteAll:
+DELETE FROM Waypoint;
