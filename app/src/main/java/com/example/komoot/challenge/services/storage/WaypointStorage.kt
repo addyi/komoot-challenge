@@ -9,5 +9,7 @@ interface WaypointStorage {
 
     fun getWaypoints(): Flow<List<Waypoint>>
 
+    fun getLatestWaypoint(): Waypoint?
+
     fun deleteAll()
 }

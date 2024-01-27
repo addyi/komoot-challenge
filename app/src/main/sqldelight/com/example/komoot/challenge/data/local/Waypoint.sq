@@ -9,6 +9,9 @@ CREATE TABLE Waypoint (
 insert:
 INSERT INTO Waypoint (time, latitude, longitude, picture) VALUES (?,?, ?, ?);
 
+getLatest:
+SELECT * FROM Waypoint WHERE time = (SELECT MAX(time) FROM Waypoint);
+
 getAll:
 SELECT * FROM Waypoint;
 

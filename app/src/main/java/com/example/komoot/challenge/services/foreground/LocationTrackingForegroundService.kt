@@ -5,8 +5,10 @@ import android.content.Intent
 import android.util.Log
 import com.example.komoot.challenge.services.location.LocationClient
 import com.example.komoot.challenge.services.notification.NotificationService
+import com.example.komoot.challenge.services.waypoint.WaypointService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.catch
@@ -19,6 +21,9 @@ class LocationTrackingForegroundService : Service() {
 
     private val locationClient: LocationClient by inject()
     private val notificationService: NotificationService by inject()
+    private val waypointService: WaypointService by inject()
+
+    private var job: Job? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -28,7 +33,7 @@ class LocationTrackingForegroundService : Service() {
     override fun onStartCommand(
         intent: Intent?,
         flags: Int,
-        startId: Int,
+        startId: Int
     ): Int {
         when (intent?.action) {
             ACTION_START -> start()
@@ -49,9 +54,13 @@ class LocationTrackingForegroundService : Service() {
         Log.d(TAG, "start() called")
         val notification = notificationService.getForegroundNotification(this)
 
-        locationClient.getLastKnownLocation()
+        job = locationClient.getLastKnownLocation()
             .catch { e -> e.printStackTrace() }
-            .onEach { location -> Log.d(TAG, "start: $location") }
+            .onEach { location ->
+                Log.d(TAG, "start: $location")
+
+                waypointService.newLocation(location)
+            }
             .launchIn(serviceScope)
 
         startForeground(1, notification)
@@ -59,6 +68,8 @@ class LocationTrackingForegroundService : Service() {
 
     private fun stop() {
         Log.d(TAG, "stop() called")
+        job?.cancel()
+        waypointService.clearWaypoints()
         stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
     }

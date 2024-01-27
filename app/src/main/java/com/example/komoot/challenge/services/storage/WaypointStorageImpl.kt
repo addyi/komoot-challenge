@@ -26,6 +26,10 @@ class WaypointStorageImpl(context: Context) : WaypointStorage {
         return db.waypointQueries.getAll().asFlow().mapToList(Dispatchers.IO)
     }
 
+    override fun getLatestWaypoint(): Waypoint? {
+        return db.waypointQueries.getLatest().executeAsOneOrNull()
+    }
+
     override fun insert(waypoint: Waypoint) {
         db.waypointQueries.transaction {
             db.waypointQueries.insert(waypoint.time, waypoint.latitude, waypoint.longitude, waypoint.picture)

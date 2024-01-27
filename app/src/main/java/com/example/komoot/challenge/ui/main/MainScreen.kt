@@ -13,25 +13,22 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.example.komoot.challenge.data.local.Waypoint
 
 @Composable
-fun MainMissingPermissionScreen(
-    onRequestPermission: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun MainMissingPermissionScreen(onRequestPermission: () -> Unit, modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        topBar = { MainTopBar() },
+        topBar = { MainTopBar() }
     ) {
         Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(it),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
         ) {
             Button(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                onClick = onRequestPermission,
+                onClick = onRequestPermission
             ) {
                 Text(text = "Request permission")
             }
@@ -40,30 +37,26 @@ fun MainMissingPermissionScreen(
 }
 
 @Composable
-fun MainStoppedScreen(
-    onStart: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun MainStoppedScreen(onStart: () -> Unit, modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
             MainTopBar {
                 TextButton(
                     onClick = onStart,
-                    content = { Text("Start") },
+                    content = { Text("Start") }
                 )
             }
-        },
+        }
     ) {
         Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(it),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
         ) {
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                text = "Please start the service!",
+                text = "Please start the service!"
             )
         }
     }
@@ -72,7 +65,8 @@ fun MainStoppedScreen(
 @Composable
 fun MainPictureFeedScreen(
     onStop: () -> Unit,
-    modifier: Modifier = Modifier,
+    waypoints: List<Waypoint>,
+    modifier: Modifier = Modifier
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -80,20 +74,19 @@ fun MainPictureFeedScreen(
             MainTopBar {
                 TextButton(
                     onClick = onStop,
-                    content = { Text("Stop") },
+                    content = { Text("Stop") }
                 )
             }
-        },
+        }
     ) {
         Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(it),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
         ) {
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                text = "TODO: Picture feed",
+                text = waypoints.toString()
             )
         }
     }
@@ -101,13 +94,10 @@ fun MainPictureFeedScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MainTopBar(
-    modifier: Modifier = Modifier,
-    action: @Composable RowScope.() -> Unit = {},
-) {
+private fun MainTopBar(modifier: Modifier = Modifier, action: @Composable RowScope.() -> Unit = {}) {
     TopAppBar(
         modifier = modifier,
         title = { Text(text = "Hello komoot!") },
-        actions = action,
+        actions = action
     )
 }

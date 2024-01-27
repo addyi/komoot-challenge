@@ -1,27 +1,29 @@
 package com.example.komoot.challenge.ui.main
 
 import androidx.lifecycle.ViewModel
-import com.example.komoot.challenge.services.notification.NotificationService
+import androidx.lifecycle.viewModelScope
+import com.example.komoot.challenge.services.waypoint.WaypointService
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class MainViewModel(
-    private val notificationService: NotificationService,
+    private val waypointService: WaypointService
 ) : ViewModel() {
+
     private val _uiState = MutableStateFlow<MainUiState>(MainUiState.MissingPermissions)
-    val uiState =
-        _uiState
-            .onStart { notificationService.setupNotificationChannel() }
+    val uiState = _uiState
 
     fun onLocationPermissionGranted() {
-        _uiState.value = MainUiState.Stopped
-    }
-
-    fun onStart() {
-        _uiState.value = MainUiState.Running
-    }
-
-    fun onStop() {
-        _uiState.value = MainUiState.Stopped
+        waypointService
+            .getWaypoints()
+            .onEach { waypoints ->
+                if (waypoints.isEmpty()) {
+                    _uiState.value = MainUiState.Stopped
+                } else {
+                    _uiState.value = MainUiState.Running(waypoints)
+                }
+            }
+            .launchIn(viewModelScope)
     }
 }

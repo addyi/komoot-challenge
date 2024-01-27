@@ -26,19 +26,19 @@ class MainActivity : ComponentActivity() {
             arrayOf(
                 android.Manifest.permission.ACCESS_COARSE_LOCATION,
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.POST_NOTIFICATIONS,
+                android.Manifest.permission.POST_NOTIFICATIONS
             )
         } else {
             arrayOf(
                 android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
             )
         }
     }
 
     private val requestPermissionLauncher =
         registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions(),
+            ActivityResultContracts.RequestMultiplePermissions()
         ) { resultMap ->
             resultMap.values
                 .none { isGranted -> !isGranted }
@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                         Toast.makeText(
                             this,
                             "All permissions are required",
-                            Toast.LENGTH_LONG,
+                            Toast.LENGTH_LONG
                         ).show()
                     }
                 }
@@ -65,21 +65,16 @@ class MainActivity : ComponentActivity() {
                 val uiState =
                     viewModel.uiState.collectAsState(initial = MainUiState.MissingPermissions)
 
-                when (uiState.value) {
+                when (val state = uiState.value) {
                     MainUiState.MissingPermissions ->
                         MainMissingPermissionScreen(onRequestPermission = ::requestPermissions)
 
-                    MainUiState.Stopped ->
-                        MainStoppedScreen(onStart = {
-                            startForegroundService()
-                            viewModel.onStart()
-                        })
+                    MainUiState.Stopped -> MainStoppedScreen(onStart = ::startForegroundService)
 
-                    is MainUiState.Running ->
-                        MainPictureFeedScreen(onStop = {
-                            stopForegroundService()
-                            viewModel.onStop()
-                        })
+                    is MainUiState.Running -> MainPictureFeedScreen(
+                        onStop = ::stopForegroundService,
+                        waypoints = state.waypoints
+                    )
                 }
             }
         }
