@@ -1,10 +1,10 @@
 package com.example.komoot.challenge.di
 
 import android.content.Context
-import com.example.komoot.challenge.services.flickr.FlickrClient
 import com.example.komoot.challenge.services.flickr.FlickrService
 import com.example.komoot.challenge.services.flickr.FlickrServiceImpl
-import com.example.komoot.challenge.services.flickr.KtorFlickrClient
+import com.example.komoot.challenge.services.flickr.client.FlickrClient
+import com.example.komoot.challenge.services.flickr.client.KtorFlickrClient
 import com.example.komoot.challenge.services.location.LocationClient
 import com.example.komoot.challenge.services.location.LocationClientImpl
 import com.example.komoot.challenge.services.notification.NotificationService

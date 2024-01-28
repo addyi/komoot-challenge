@@ -1,4 +1,4 @@
-package com.example.komoot.challenge.services.flickr
+package com.example.komoot.challenge.services.flickr.dto
 
 import kotlinx.serialization.SerialName
 

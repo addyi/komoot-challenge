@@ -1,7 +1,9 @@
-package com.example.komoot.challenge.services.flickr
+package com.example.komoot.challenge.services.flickr.client
 
 import android.location.Location
 import android.util.Log
+import com.example.komoot.challenge.services.flickr.dto.FlickrDto
+import com.example.komoot.challenge.services.flickr.dto.PhotoDto
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

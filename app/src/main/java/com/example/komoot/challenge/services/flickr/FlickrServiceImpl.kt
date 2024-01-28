@@ -2,6 +2,8 @@ package com.example.komoot.challenge.services.flickr
 
 import android.location.Location
 import android.util.Log
+import com.example.komoot.challenge.services.flickr.client.FlickrClient
+import com.example.komoot.challenge.services.flickr.dto.FlickrPhoto
 
 class FlickrServiceImpl(
     private val flickrClient: FlickrClient
