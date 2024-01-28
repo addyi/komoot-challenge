@@ -21,7 +21,7 @@ class MainViewModel(
                 if (waypoints.isEmpty()) {
                     _uiState.value = MainUiState.Stopped
                 } else {
-                    _uiState.value = MainUiState.Running(waypoints)
+                    _uiState.value = MainUiState.Running(waypoints.reversed())
                 }
             }
             .launchIn(viewModelScope)
