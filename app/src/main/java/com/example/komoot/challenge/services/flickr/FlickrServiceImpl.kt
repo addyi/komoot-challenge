@@ -6,7 +6,7 @@ import android.util.Log
 class FlickrServiceImpl(
     private val flickrClient: FlickrClient
 ) : FlickrService {
-    override suspend fun getPicture(location: Location): String? {
+    override suspend fun getPicture(location: Location): FlickrPhoto? {
         val photoDto = try {
             flickrClient.getPicture(location) ?: return null
         } catch (e: Exception) {
@@ -17,7 +17,7 @@ class FlickrServiceImpl(
 
         Log.d(TAG, "New picture [${photoDto.title}]: $pictureUrl")
 
-        return pictureUrl
+        return FlickrPhoto(pictureUrl, photoDto.title)
     }
 
     companion object {

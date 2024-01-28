@@ -39,7 +39,8 @@ class WaypointServiceImpl(
                 time = System.currentTimeMillis(),
                 latitude = location.latitude,
                 longitude = location.longitude,
-                picture = photo ?: "FIXME" // FIXME
+                picture = photo?.photoUrl,
+                title = photo?.title
             )
         )
     }

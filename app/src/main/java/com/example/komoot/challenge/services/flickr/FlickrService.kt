@@ -4,5 +4,5 @@ import android.location.Location
 
 interface FlickrService {
 
-    suspend fun getPicture(location: Location): String?
+    suspend fun getPicture(location: Location): FlickrPhoto?
 }

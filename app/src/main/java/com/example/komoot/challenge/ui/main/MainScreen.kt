@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -107,19 +108,22 @@ private fun Picture(waypoint: Waypoint, modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
     ) {
+        Text(
+            style = MaterialTheme.typography.headlineSmall,
+            text = waypoint.title ?: "Unknown"
+        )
+
         Text(text = "Latitude: ${waypoint.latitude}")
         Text(text = "Longitude: ${waypoint.longitude}")
 
-        waypoint.picture
-            .takeIf { it.startsWith("http") }
-            ?.let { url ->
-                AsyncImage(
-                    modifier = Modifier.fillMaxWidth(),
-                    model = url,
-                    contentScale = ContentScale.FillWidth,
-                    contentDescription = null // FIXME: use picture name
-                )
-            }
+        waypoint.picture?.let { url ->
+            AsyncImage(
+                modifier = Modifier.fillMaxWidth(),
+                model = url,
+                contentScale = ContentScale.FillWidth,
+                contentDescription = waypoint.title
+            )
+        }
     }
 }
 

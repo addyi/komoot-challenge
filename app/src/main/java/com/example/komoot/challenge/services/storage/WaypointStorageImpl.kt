@@ -32,7 +32,13 @@ class WaypointStorageImpl(context: Context) : WaypointStorage {
 
     override fun insert(waypoint: Waypoint) {
         db.waypointQueries.transaction {
-            db.waypointQueries.insert(waypoint.time, waypoint.latitude, waypoint.longitude, waypoint.picture)
+            db.waypointQueries.insert(
+                time = waypoint.time,
+                latitude = waypoint.latitude,
+                longitude = waypoint.longitude,
+                picture = waypoint.picture,
+                title = waypoint.title
+            )
         }
     }
 }

@@ -2,12 +2,13 @@ CREATE TABLE Waypoint (
     time INTEGER NOT NULL UNIQUE,
     latitude REAL NOT NULL,
     longitude REAL NOT NULL,
-    picture TEXT NOT NULL,
+    picture TEXT,
+    title TEXT,
     PRIMARY KEY (time)
 );
 
 insert:
-INSERT INTO Waypoint (time, latitude, longitude, picture) VALUES (?,?, ?, ?);
+INSERT INTO Waypoint (time, latitude, longitude, picture, title) VALUES (?, ?, ?, ?, ?);
 
 getLatest:
 SELECT * FROM Waypoint WHERE time = (SELECT MAX(time) FROM Waypoint);
