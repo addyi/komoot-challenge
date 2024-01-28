@@ -1,7 +1,6 @@
 package com.example.komoot.challenge.services.flickr.client
 
 import android.location.Location
-import android.util.Log
 import com.example.komoot.challenge.services.flickr.dto.FlickrDto
 import com.example.komoot.challenge.services.flickr.dto.PhotoDto
 import io.ktor.client.HttpClient
@@ -9,7 +8,6 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.URLProtocol
-import io.ktor.http.contentType
 import io.ktor.http.path
 
 class KtorFlickrClient(
@@ -18,8 +16,6 @@ class KtorFlickrClient(
 
     override suspend fun getPicture(location: Location): PhotoDto? {
         val response = httpClient.get {
-            // contentType(ContentType.Application.Json)
-
             url {
                 protocol = URLProtocol.HTTPS
                 host = "www.flickr.com"
@@ -40,8 +36,6 @@ class KtorFlickrClient(
         if (response.status.value != 200) {
             error("Some error occurred ${response.status} ${response.bodyAsText()}")
         }
-
-        Log.d("addyi", "${response.contentType()}")
 
         return response
             .body<FlickrDto>()
