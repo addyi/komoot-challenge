@@ -8,7 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.collectAsState
-import com.example.komoot.challenge.services.foreground.LocationTrackingForegroundService
+import com.example.komoot.challenge.foreground.LocationTrackingForegroundService
 import com.example.komoot.challenge.services.notification.NotificationService
 import com.example.komoot.challenge.ui.theme.AdrianRennerChallengeTheme
 import com.example.komoot.challenge.util.hasLocationPermission

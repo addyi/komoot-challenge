@@ -1,4 +1,4 @@
-package com.example.komoot.challenge.services.foreground
+package com.example.komoot.challenge.foreground
 
 import android.app.Service
 import android.content.Intent
