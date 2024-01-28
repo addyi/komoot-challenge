@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface WaypointService {
 
-    fun newLocation(location: Location)
+    suspend fun newLocation(location: Location)
 
     fun getWaypoints(): Flow<List<Waypoint>>
 

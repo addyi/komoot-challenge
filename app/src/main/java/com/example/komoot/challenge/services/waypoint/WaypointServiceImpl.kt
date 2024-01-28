@@ -2,14 +2,16 @@ package com.example.komoot.challenge.services.waypoint
 
 import android.location.Location
 import com.example.komoot.challenge.data.local.Waypoint
+import com.example.komoot.challenge.services.flickr.FlickrService
 import com.example.komoot.challenge.services.storage.WaypointStorage
 import kotlinx.coroutines.flow.Flow
 
 class WaypointServiceImpl(
-    private val waypointStorage: WaypointStorage
+    private val waypointStorage: WaypointStorage,
+    private val flickrService: FlickrService
 ) : WaypointService {
 
-    override fun newLocation(location: Location) {
+    override suspend fun newLocation(location: Location) {
         val latestWaypoint = waypointStorage.getLatestWaypoint()
 
         if (latestWaypoint == null) {
@@ -29,14 +31,15 @@ class WaypointServiceImpl(
         waypointStorage.deleteAll()
     }
 
-    private fun fetchUrlAndStore(location: Location) {
-        // FIXME: fetch url
+    private suspend fun fetchUrlAndStore(location: Location) {
+        val photo = flickrService.getPicture(location)
+
         waypointStorage.insert(
             Waypoint(
                 time = System.currentTimeMillis(),
                 latitude = location.latitude,
                 longitude = location.longitude,
-                picture = "FIXME"
+                picture = photo ?: "FIXME" // FIXME
             )
         )
     }
