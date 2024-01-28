@@ -1,4 +1,4 @@
-package com.example.komoot.challenge.services.storage
+package com.example.komoot.challenge.services.waypoint.storage
 
 import android.content.Context
 import app.cash.sqldelight.coroutines.asFlow

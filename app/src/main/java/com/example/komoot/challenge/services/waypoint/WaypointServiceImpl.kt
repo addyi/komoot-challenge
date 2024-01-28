@@ -3,7 +3,7 @@ package com.example.komoot.challenge.services.waypoint
 import android.location.Location
 import com.example.komoot.challenge.data.local.Waypoint
 import com.example.komoot.challenge.services.flickr.FlickrService
-import com.example.komoot.challenge.services.storage.WaypointStorage
+import com.example.komoot.challenge.services.waypoint.storage.WaypointStorage
 import kotlinx.coroutines.flow.Flow
 
 class WaypointServiceImpl(
