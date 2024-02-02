@@ -16,7 +16,6 @@
 
 ![](pics/slide1.png)
 
-
 ## Work log
 
 The work log describes my thought process and how I tackled the challenge. Below it also gives a
@@ -137,3 +136,34 @@ Retrofit I used already a lot so this was another opportunity to learn more abou
 didn't learn anything new but you never know.
 
 As image loading library I used coil just because I wanted to use it more.
+
+## Improvements
+
+- Location logging
+    - It might be more accurate to log all the locations
+    - For example if a walk goes up a mountain in serpentine
+    - There might not be a 100m distance between waypoints from the bird eye view but the user still
+      has walked more then 100m
+
+- The UI is not that responsive to foreground service state
+    - The activity starts the foreground service and subscribes to the waypoint updates
+    - The time between the service starts and the first waypoint update can be quite long
+    - The UI uses the waypoint updates to indicate if a service is running
+    - If the service actually gets killed without clearing the database the UI will still show that
+      the service is running
+
+- The service is responsible for fetching the picture but this could also be done only when the UI
+  needs it
+
+- Handling the case that no picture is available for a location
+
+- Handling the case that the user has no internet connection
+
+- Handling the case that there are just a few pictures available for a location and make sure that
+  the user doesn't see the same pictures over and over again
+
+- There is no possibility to view the waypoints after the service has stopped
+
+- Adding new waypoints at the top is not handled very smooth
+
+- Testing
