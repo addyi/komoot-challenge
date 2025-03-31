@@ -14,7 +14,7 @@
 
 ![](pics/slide1.png)
 
-![](pics/slide1.png)
+![](pics/slide2.png)
 
 ## Work log
 
