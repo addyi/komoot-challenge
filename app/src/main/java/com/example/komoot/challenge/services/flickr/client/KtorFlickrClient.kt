@@ -22,7 +22,12 @@ class KtorFlickrClient(
                 path("services/rest")
                 parameters.apply {
                     append("method", "flickr.photos.search")
+
+                    // I deleted this API key since I decided to make the project public
+                    // I know don't commit secrets to the repository, etc. but this was just a coding challenge
+                    // It seems also nowadays that the flicker API needs a pro subscription. Which I don't have.
                     append("api_key", "0c9bbe06a524353d108319c156568fab")
+
                     append("format", "json")
                     append("nojsoncallback", "1")
                     append("lat", "${location.latitude}")
