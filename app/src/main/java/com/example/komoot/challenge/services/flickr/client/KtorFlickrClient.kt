@@ -1,6 +1,7 @@
 package com.example.komoot.challenge.services.flickr.client
 
 import android.location.Location
+import android.util.Log
 import com.example.komoot.challenge.services.flickr.dto.FlickrDto
 import com.example.komoot.challenge.services.flickr.dto.PhotoDto
 import io.ktor.client.HttpClient
@@ -42,10 +43,11 @@ class KtorFlickrClient(
             error("Some error occurred ${response.status} ${response.bodyAsText()}")
         }
 
-        return response
-            .body<FlickrDto>()
-            .photos
-            .photo
-            .randomOrNull()
+        return runCatching { response.body<FlickrDto>().photos.photo.randomOrNull() }
+            .onFailure { error ->
+                // API key is invalid therefore the request always fails
+                Log.e("FlickrClient", "Error occurred while fetching picture: ${response.bodyAsText()}")
+            }
+            .getOrNull()
     }
 }
